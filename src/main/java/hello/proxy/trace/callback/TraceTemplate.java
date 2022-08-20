@@ -1,7 +1,7 @@
 package hello.proxy.trace.callback;
 
-import hello.advanced.trace.TraceStatus;
-import hello.advanced.trace.logtrace.LogTrace;
+import hello.proxy.trace.TraceStatus;
+import hello.proxy.trace.logtrace.LogTrace;
 
 public class TraceTemplate {
 
