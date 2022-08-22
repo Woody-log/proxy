@@ -1,4 +1,4 @@
-package hello.proxy.app.config;
+package hello.proxy.config;
 
 import hello.proxy.app.V2.OrderControllerV2;
 import hello.proxy.app.V2.OrderRepositoryV2;
