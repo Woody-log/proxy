@@ -3,10 +3,11 @@ package hello.proxy.jdkdynamic.code;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class BIml implements BInterface {
+public class AImpl implements AInterface {
+
     @Override
     public String call() {
-        log.info("B호출");
-        return "B";
+        log.info("A호출");
+        return "A";
     }
 }
