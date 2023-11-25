@@ -1,80 +1,84 @@
 package hello.proxy.jdkdynamic;
 
+
+import java.lang.reflect.Method;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 @Slf4j
 public class ReflectionTest {
 
     @Test
     void reflection0() {
-        Hello target = new Hello();
+
+        final Hello target = new Hello();
 
         // 공통 로직1 시작
         log.info("start");
-        String result1 = target.callA();
+        final var result1 = target.callA();
         log.info("result={}", result1);
-        // 공통 로직2 종료
 
-        // 공통 로직1 시작
+        // 공통 로직2 시작
         log.info("start");
-        String result2 = target.callB();
+        final var result2 = target.callB();
         log.info("result={}", result2);
-        // 공통 로직2 종료
     }
 
     @Test
     void reflection1() throws Exception {
         // 클래스 정보
-        Class classHello = Class.forName("hello.proxy.jdkdynamic.ReflectionTest$Hello");
+        final Class<?> classHello = Class.forName("hello.proxy.jdkdynamic.ReflectionTest$Hello");
 
-        Hello target = new Hello();
+        final Hello target = new Hello();
+
         // callA 메서드 정보
-        Method methodCallA = classHello.getMethod("callA");
-        Object result1 = methodCallA.invoke(target);
+        final var methodCallA = classHello.getMethod("callA");
+        final var result1 = methodCallA.invoke(target);
         log.info("result1={}", result1);
+        // 공통로직1 종료
 
-        // callA 메서드 정보
-        Method methodCallB = classHello.getMethod("callB");
-        Object result2 = methodCallA.invoke(target);
-        log.info("result1={}", result2);
+        // callB 메서드 정보
+        final var methodCallB = classHello.getMethod("callB");
+        final var result2 = methodCallB.invoke(target);
+        log.info("result2={}", result2);
+        // 공통로직2 종료
     }
 
     @Test
     void reflection2() throws Exception {
         // 클래스 정보
-        Class classHello = Class.forName("hello.proxy.jdkdynamic.ReflectionTest$Hello");
+        final Class<?> classHello = Class.forName("hello.proxy.jdkdynamic.ReflectionTest$Hello");
 
-        Hello target = new Hello();
-        // callA 메서드 정보
-        Method methodCallA = classHello.getMethod("callA");
+        final Hello target = new Hello();
+        final var methodCallA = classHello.getMethod("callA");
         dynamicCall(methodCallA, target);
 
-        // callA 메서드 정보
-        Method methodCallB = classHello.getMethod("callB");
+        final var methodCallB = classHello.getMethod("callB");
         dynamicCall(methodCallB, target);
     }
 
-    private void dynamicCall(Method method, Object target) throws InvocationTargetException, IllegalAccessException {
+    private void dynamicCall(final Method mehtod, final Object target) throws Exception {
         log.info("start");
-        Object result = method.invoke(target);
+        final var result = mehtod.invoke(target);
         log.info("result={}", result);
-    }
 
+    }
 
     @Slf4j
     static class Hello {
+
         public String callA() {
-            log.info("callA");
+            log.info("call A");
             return "A";
         }
 
         public String callB() {
-            log.info("callB");
+            log.info("call B");
             return "B";
         }
+
     }
+
 }
+
+
